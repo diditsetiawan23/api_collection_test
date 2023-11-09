@@ -1,0 +1,21 @@
+{
+	"id": "dce8d406-f33d-4548-ad4c-f4554fff6ff0",
+	"name": "pintu_env",
+	"values": [
+		{
+			"key": "base_url",
+			"value": "https://jsonplaceholder.typicode.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "resource_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-11-09T15:24:11.261Z",
+	"_postman_exported_using": "Postman/10.19.17"
+}
