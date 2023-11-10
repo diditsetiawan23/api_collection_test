@@ -7,6 +7,7 @@ from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from datetime import datetime
 from telegram import Bot
+from dotenv import load_dotenv
 from config import configuration as config
 
 # Get the current date
@@ -15,6 +16,9 @@ current_date = datetime.now()
 formatted_date = current_date.strftime('%Y-%m-%d')
 # Configure the logger
 logging.basicConfig(filename=f'logs/log_{formatted_date}.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+# Load environment variables from .env file
+env_path = os.getcwd()+os.path.join('/config','.env')
+load_dotenv(env_path)
 
 class PostmanNewman:
     @staticmethod
@@ -36,11 +40,11 @@ class PostmanNewman:
 
     @staticmethod
     def send_result_to_email():
-        sender_email = f'{config.email_credentials.get("sender")}'
-        app_password = f'{config.email_credentials.get("app_password")}'
+        sender_email = f'{os.getenv("SENDER")}'
+        app_password = f'{os.getenv("APP_PASSWORD")}'
         recipient_email = f'{config.email_credentials.get("recipient")}'
-        smtp_server = f'{config.email_credentials.get("smtp_server")}'
-        smtp_port = f'{config.email_credentials.get("smtp_port")}'
+        smtp_server = f'{os.getenv("SMTP_SERVER")}'
+        smtp_port = f'{os.getenv("SMTP_PORT")}'
 
         # Create a MIME multipart message
         message = MIMEMultipart()
@@ -76,8 +80,8 @@ class PostmanNewman:
     @staticmethod
     async def send_result_to_telegram():
         # Create a bot instance
-        bot = Bot(token=f'{config.telegram_config.get("bot_token")}')
-        group_chat_id = f'{config.telegram_config.get("chat_id")}'
+        bot = Bot(token=f'{os.getenv("BOT_TOKEN")}')
+        group_chat_id = f'{os.getenv("CHAT_ID")}'
         await bot.initialize()
         # Path to the file 
         file_path = os.getcwd()+os.path.join('/reports', f'pintu_api_report_{formatted_date}.html')
